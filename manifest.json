@@ -3,16 +3,11 @@
   "short_name": "Milhão",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#2c004b",
+  "theme_color": "#2c004b",
   "orientation": "portrait",
   "icons": [
-  {
-    "src": "icon.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-]
+    {
       "src": "icon.png",
       "sizes": "512x512",
       "type": "image/png"
