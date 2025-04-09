@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Milhao Challenge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon.png">
+  <meta name="theme-color" content="#000000">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Milhão Challenge</h1>
+    <p class="dificuldade"><span id="categoria"></span></p>
+  </header>
+
+  <main id="quiz">
+    <!-- As perguntas aparecerão aqui via JavaScript -->
+  </main>
+
+  <footer class="botoes-ajuda">
+    <button id="ajuda-universitarios">Ajuda dos Universitários</button>
+    <button id="ajuda-placas">Ajuda das Placas</button>
+  </footer>
+</div>
+
+<div id="tela-vitoria" class="escondido">
+  <h2 id="mensagem-final"></h2>
+  <button id="reiniciar">Jogar Novamente</button>
+</div>
+
+<!-- Modal da Ajuda das Placas -->
+<div id="modal-placas" class="modal escondido">
+  <div class="modal-content">
+    <span class="close" id="fechar-modal">&times;</span>
+    <h2>Ajuda das Placas</h2>
+    <p id="placas-texto"></p>
+  </div>
+</div>
+
+<!-- 🎵 Áudios para feedback -->
+<audio id="som-correto" src="https://assets.mixkit.co/active_storage/sfx/957/957.wav"></audio>
+<audio id="som-incorreto" src="https://assets.mixkit.co/active_storage/sfx/950/950.wav"></audio>
+<audio id="som-palmas" src="https://cdn.pixabay.com/download/audio/2023/12/05/audio_58a562081d.mp3?filename=applause-180037.mp3"></audio>
+
+<!-- 🎵 Jingle de Abertura -->
+<audio id="jingle-abertura">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/19/audio_0388434258.mp3?filename=cinematic-intro-2-96470.mp3" type="audio/mp3">
+  Seu navegador não suporta áudio HTML5.
+</audio>
+
+<!-- Modal do Pix -->
+<div id="modal-pix" class="modal escondido">
+  <div class="modal-content">
+    <span class="close" id="fechar-pix">&times;</span>
+    <h2>Apoie o Milhão Challenge!</h2>
+    <p>Se gostou do jogo, considere fazer uma doação via Pix:</p>
+    <a id="link-pix" href="https://nubank.com.br/cobrar/kwqh4/67f5baed-f130-4517-a5c4-5b4a6692acc8" target="_blank" class="pix-button">Abrir página de doação</a>
+  </div>
+</div>
+
+<!-- Script para tocar o jingle e iniciar o jogo -->
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const jingle = document.getElementById('jingle-abertura');
+
+    // Toca o jingle ao iniciar
+    jingle.play().catch(() => {
+      document.addEventListener('click', () => {
+        jingle.play();
+      }, { once: true });
+    });
+
+    // Inicia o jogo apenas após o jingle terminar
+    jingle.addEventListener('ended', () => {
+      if (typeof exibirPergunta === 'function') {
+        exibirPergunta();
+      }
+    });
+
+    // Registra o Service Worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker registrado', reg))
+        .catch(err => console.log('Service Worker falhou', err));
+    }
+  });
+</script>
+
+<script src="./script.js"></script>
+</body>
+</html>
